@@ -84,14 +84,21 @@ void Window::is_running(sf::RenderWindow& window) {
       std::filesystem::path(__FILE__).parent_path().parent_path());
   sf::Font font;
   if (!font.loadFromFile("assets/OpenSans-Regular.ttf")) {
-    std::cerr << "Failed to load font" << std::endl;
+    std::cerr << "Blad podczas ladowania czcionki" << std::endl;
   }
   sf::Text collision_mess;
   collision_mess.setFont(font);
   collision_mess.setCharacterSize(24);
   collision_mess.setFillColor(sf::Color::Yellow);
-  collision_mess.setString("Collision!");
+  collision_mess.setString("Kolizcja!");
   collision_mess.setPosition(600, 20);
+
+  sf::Text movement_info;
+  movement_info.setFont(font);
+  movement_info.setCharacterSize(24);
+  movement_info.setFillColor(sf::Color::White);
+  movement_info.setString("Poruszaj sie strzalkami");
+  movement_info.setPosition(1000, 20);
 
   while (window.isOpen()) {
     sf::Event evnt;
@@ -125,6 +132,7 @@ void Window::is_running(sf::RenderWindow& window) {
     window.clear();
     window.draw(triangle1);
     window.draw(triangle2);
+    window.draw(movement_info);
     if (collision && clock.getElapsedTime().asSeconds() < 1.0f)
       window.draw(collision_mess);
     else if (collision)
